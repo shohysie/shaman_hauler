@@ -12,6 +12,8 @@ The teammate has permanently acquired a new ability to "Transport the Shaman". T
 
 [Notes]
 
+This MOD should be intalled after MODs of new campaigns ( if there're any ).
+
 The shaman must have started dancing before the carrying work begins. The work begins with pressing of the ability button and lasts for 1 round.
 
 If the teammate is not close enough to the shaman and the shaman does not reach level 15, the moving will not begin. It begins as soon as the teammate gets close to the shaman manually. 
@@ -26,6 +28,9 @@ Magic images, such as project image and simulacrum of the shamans, can not be ca
 
 
 [Version History]
+
+v0.3
+Support for MODs of new campaigns ( if there're any ).
 
 v0.2
 Fixed the problem that the carrying work cannot being when amout of summoned creatures reaches the upper limit.

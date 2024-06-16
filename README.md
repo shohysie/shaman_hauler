@@ -29,6 +29,9 @@ Magic images, such as project image and simulacrum of the shamans, can not be ca
 
 [Version History]
 
+v0.3
+Support for MODs of new campaigns ( if there're any ).
+
 v0.2
 Fixed the problem that the carrying work cannot being when amout of summoned creatures reaches the upper limit.
 Since the shaman and the hauler were difficult to pass through terrains such as narrow doors in the previous version, the hauler can walk freely now. The different moving speed is also cancelled.

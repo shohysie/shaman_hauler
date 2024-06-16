@@ -1,7 +1,7 @@
 BACKUP ~shaman_hauler/backup~
 AUTHOR ~shohy@126.com~
 
-VERSION ~v0.2~
+VERSION ~v0.3~
 AUTO_EVAL_STRINGS
 
 README ~%MOD_FOLDER%/README.%LANGUAGE%.txt~
@@ -55,12 +55,29 @@ COMPILE ~shaman_hauler/baf/SHAM#HLA.baf~
 COMPILE ~shaman_hauler/baf/SHAM#HLB.baf~
 
 //全局脚本产生鸟
-EXTEND_BOTTOM ~baldur.bcs~ ~shaman_hauler/baf/SHAM#HL.baf~
-EXTEND_BOTTOM ~baldur25.bcs~ ~shaman_hauler/baf/SHAM#HL.baf~
-
-ACTION_IF FILE_EXISTS_IN_GAME bdbaldur.bcs THEN BEGIN	
-	EXTEND_BOTTOM ~bdbaldur.bcs~ ~shaman_hauler/baf/SHAM#HL.baf~
-END
+COPY_EXISTING ~CAMPAIGN.2da~ ~override~
+	COUNT_2DA_ROWS 10 camprowmax	//至少10列column，row行数读入camprowmax
+	PATCH_IF camprowmax > 1 BEGIN
+		FOR (camprows = 1 ; camprows < camprowmax ; ++camprows) BEGIN
+			READ_2DA_ENTRY camprows 1 10 campscript	//WORLDSCRIPT名称
+			SET "%campscript%added" = 0
+		END
+		FOR (camprows = 1 ; camprows < camprowmax ; ++camprows) BEGIN
+			READ_2DA_ENTRY camprows 1 10 campscript	//WORLDSCRIPT名称
+				PATCH_IF "%campscript%added" = 0 BEGIN
+					INNER_ACTION BEGIN
+						EXTEND_TOP ~%campscript%.bcs~ ~shaman_hauler/baf/SHAM#HL.baf~
+					END
+					SET "%campscript%added" = 1
+				END
+		END
+	END ELSE BEGIN
+		INNER_ACTION BEGIN
+			EXTEND_TOP ~baldur.bcs~ ~shaman_hauler/baf/SHAM#HL.baf~
+			EXTEND_TOP ~baldur25.bcs~ ~shaman_hauler/baf/SHAM#HL.baf~
+		END
+	END
+BUT_ONLY
 
 //萨满升级获得技能
 APPEND ~CLABSH01.2da~ ~ABILITYS GA_SHAM#HL1 **** **** **** **** **** **** **** **** **** **** **** **** CDREPLACE~
